@@ -1,0 +1,5 @@
+video,tracker,conf,iou,frames,seconds,HOTA,DetA,AssA,MOTA,IDF1,IDSW,n_ids,boxes_per_frame,median_len,short_frac,ids_per_100f,gaps_per_track
+video_5,botsort,0.15,0.5,750,69.3,,,,,,,79,4.4333,31.0,0.2278,10.5333,0.5316
+video_5,botsort,0.5,0.5,750,72.6,,,,,,,53,2.384,25.0,0.3396,7.0667,3.0566
+video_5,botsort,0.3,0.4,750,78.6,,,,,,,77,4.0573,28.0,0.2857,10.2667,1.7403
+video_5,botsort,0.3,0.7,750,78.7,,,,,,,82,4.2827,28.0,0.2927,10.9333,1.7195

@@ -1,7 +1,13 @@
 lab_data/
-runs/
+# Chỉ commit 5 file nộp; video xem thử và các lượt thử ở lại máy.
+runs/*
+!runs/nop_bai/
+runs/nop_bai/*
+!runs/nop_bai/video_*.txt
 TrackEval/
 *.pt
 __pycache__/
 .ipynb_checkpoints/
 .pytest_cache/
+.venv/
+logs/

@@ -27,15 +27,30 @@ from pathlib import Path
 
 PRACTICE_VIDEO = "video_1"
 
+# TrackEval chạy trong một tiến trình con, nên vá numpy ở tiến trình này không có
+# tác dụng ở đó. Đoạn mã dưới vá lại np.float / np.int / np.bool ngay trong tiến
+# trình con, rồi mới chạy script của TrackEval (đường dẫn script là argv[1]).
+TRACKEVAL_SHIM = (
+    "import runpy, sys\n"
+    "import numpy as np\n"
+    "for name, alias in (('float', float), ('int', int), ('bool', bool)):\n"
+    "    if not hasattr(np, name):\n"
+    "        setattr(np, name, alias)\n"
+    "sys.argv = sys.argv[1:]\n"
+    "runpy.run_path(sys.argv[0], run_name='__main__')\n"
+)
+
 
 def _patch_numpy_aliases() -> None:
-    """TrackEval còn gọi np.float / np.int (đã bỏ từ NumPy 1.24)."""
+    """TrackEval còn gọi np.float / np.int / np.bool (đã bỏ từ NumPy 1.24)."""
     import numpy as np
 
     if not hasattr(np, "float"):
         np.float = float  # type: ignore[attr-defined]
     if not hasattr(np, "int"):
         np.int = int  # type: ignore[attr-defined]
+    if not hasattr(np, "bool"):
+        np.bool = bool  # type: ignore[attr-defined]
 
 
 def _load_eval_config(lab_data_root: Path) -> dict:
@@ -105,6 +120,8 @@ def run_trackeval(trackeval_root: Path, run_name: str, benchmark: str, split: st
     """
     cmd = [
         sys.executable,
+        "-c",
+        TRACKEVAL_SHIM,
         str(trackeval_root / "scripts" / "run_mot_challenge.py"),
         "--GT_FOLDER", str(trackeval_root / "data" / "gt" / "mot_challenge"),
         "--TRACKERS_FOLDER", str(trackeval_root / "data" / "trackers" / "mot_challenge"),
@@ -115,7 +132,7 @@ def run_trackeval(trackeval_root: Path, run_name: str, benchmark: str, split: st
         "--METRICS", "HOTA", "CLEAR", "Identity",
         "--USE_PARALLEL", "False",
     ]
-    print("Đang chấm video luyện:\n  " + " ".join(cmd) + "\n")
+    print("Đang chấm video luyện:\n  python " + " ".join(cmd[3:]) + "\n")
     subprocess.run(cmd, check=True)
 
 
