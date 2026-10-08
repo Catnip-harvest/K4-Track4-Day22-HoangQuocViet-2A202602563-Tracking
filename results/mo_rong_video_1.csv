@@ -1,0 +1,7 @@
+tracker,tham_so,gia_tri,HOTA,MOTA,IDF1,IDSW,So_ID
+ocsort,min_hits,1,25.929,19.498,29.177,165,163
+ocsort,min_hits,2,25.773,19.837,28.849,111,146
+ocsort,min_hits,3,25.599,19.811,28.5,90,134
+strongsort,n_init,1,29.19,19.907,32.573,110,203
+strongsort,n_init,2,29.19,19.907,32.573,110,203
+strongsort,n_init,3,29.285,20.225,32.93,80,158

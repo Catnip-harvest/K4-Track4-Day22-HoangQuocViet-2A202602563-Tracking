@@ -241,5 +241,18 @@ python scripts/evaluate_practice.py --trackeval-root TrackEval --lab-data-root "
 
 - **Tái lập kết quả trên CPU:** Đã chạy lại 5 cấu hình của bài nộp chính trên CPU (`runs/tai_lap_cpu`), chi tiết bảng so sánh HOTA/MOTA/IDF1 và số đại diện xem tại [`results/tai_lap_cpu.md`](../results/tai_lap_cpu.md).
 - **Phân tích các frame gây đổi ID ở video_1:** Bằng script [`scripts/id_switch_frames.py`](../scripts/id_switch_frames.py), nhóm trích xuất được đúng 33 lần đổi ID (danh sách chi tiết tại [`results/id_switch_video_1.csv`](../results/id_switch_video_1.csv), cùng 5 ảnh minh họa tại `submission_template/hinh/id_switch_*.jpg`). Qua đối chiếu hình ảnh trước và sau, các lần đổi ID chủ yếu rơi vào ba tình huống: (1) hai người đi sát nhau hoặc cắt qua nhau (như frame 83 giữa GT 19 và GT 23 hoán đổi ID 3 và 11; frame 284 giữa GT 38 và GT 39), (2) người bị che khuất một phần hoặc quay lưng rồi xuất hiện lại khiến tracker không khớp được ngoại hình và cấp ID mới (như frame 251 với GT 3 đổi từ ID 2 sang 22), và (3) người ở xa hoặc mép khung hình có hộp nhỏ bị detector bỏ sót liên tiếp nhiều frame. Trong các ca che khuất dài hoặc cắt nhau phức tạp, tracker lưu trữ đặc trưng ngoại hình theo bộ đệm EMA dài hạn như StrongSORT có khả năng nhận diện lại tốt hơn, hạn chế phân mảnh track so với BoT-SORT vốn chỉ dựa vào Re-ID cục bộ và Kalman ngắn hạn.
+- **Thử nghiệm mở rộng ngưỡng mở track (min_hits / n_init) ở conf 0.15:** Để kiểm chứng giải pháp giảm hiện tượng nổ số ID khi hạ `conf=0.15` (đề xuất ở Mục 4), nhóm viết script [`scripts/run_tracking_mo_rong.py`](../scripts/run_tracking_mo_rong.py) cho phép ghi đè cấu hình nội bộ tracker. Thử nghiệm chạy trên `video_1` với `conf 0.15` / `iou 0.5`, thay đổi `min_hits` (OC-SORT) và `n_init` (StrongSORT) từ 1 đến 3; kết quả chi tiết lưu tại [`results/mo_rong_video_1.csv`](../results/mo_rong_video_1.csv):
+
+  | Tracker | Tham số | Giá trị | HOTA | MOTA | IDF1 | IDSW | Số ID |
+  |---|---|---|---|---|---|---|---|
+  | `ocsort` | `min_hits` | 1 (gốc) | 25.93 | 19.50 | 29.18 | 165 | 163 |
+  | `ocsort` | `min_hits` | 2 | 25.77 | 19.84 | 28.85 | 111 | 146 |
+  | `ocsort` | `min_hits` | 3 | 25.60 | 19.81 | 28.50 | 90 | 134 |
+  | `strongsort` | `n_init` | 1 (gốc) | 29.19 | 19.91 | 32.57 | 110 | 203 |
+  | `strongsort` | `n_init` | 2 | 29.19 | 19.91 | 32.57 | 110 | 203 |
+  | `strongsort` | `n_init` | 3 | 29.29 | 20.23 | 32.93 | 80 | 158 |
+
+  *Nhận xét & Kết luận:* Việc nâng ngưỡng xác nhận track (`min_hits`, `n_init`) đã phát huy hiệu quả rõ rệt trong việc ngăn chặn các hộp giả nhấp nháy mở track mới, giúp giảm mạnh số lần đổi ID (IDSW của OC-SORT giảm từ 165 xuống 90; StrongSORT giảm từ 110 xuống 80) đồng thời giảm tổng số ID sinh ra về gần số lượng người thật hơn. Với StrongSORT, việc lọc bỏ các track ngắn giúp duy trì trọn vẹn ưu thế recall cao của conf 0.15 mà không làm nhiễu bộ nhớ Re-ID, giúp IDF1 đạt mức kỷ lục 32.93 và nâng HOTA từ 29.19 lên 29.29. Tuy nhiên, vẫn không có cấu hình nào vượt qua được điểm HOTA 30.00 của bản nộp chính (`botsort` conf 0.3, iou 0.7), do BoT-SORT sở hữu cơ chế ghép hai tầng tự nhiên (chỉ dùng hộp mạnh để tạo track mới nhưng tận dụng hộp yếu để duy trì track cũ) cân bằng giữa DetA và AssA tốt hơn phương pháp nâng ngưỡng cứng.
+
 
 
