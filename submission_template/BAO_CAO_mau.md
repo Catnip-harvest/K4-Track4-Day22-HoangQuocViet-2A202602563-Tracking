@@ -236,3 +236,8 @@ python scripts/run_tracking.py --source "$LAB_DATA/video_4/img1" --seq-name vide
 python scripts/run_tracking.py --source "$LAB_DATA/video_5/img1" --seq-name video_5 --tracker botsort    --conf 0.15 --iou 0.5 --out runs/nop_bai --save-video --device cuda:0
 python scripts/evaluate_practice.py --trackeval-root TrackEval --lab-data-root "$LAB_DATA" --submission runs/nop_bai/video_1.txt --run-name nhom_viet_linh_video1
 ```
+
+## Phụ lục E — Phần mở rộng của Linh
+
+- **Tái lập kết quả trên CPU:** Đã chạy lại 5 cấu hình của bài nộp chính trên CPU (`runs/tai_lap_cpu`), chi tiết bảng so sánh HOTA/MOTA/IDF1 và số đại diện xem tại [`results/tai_lap_cpu.md`](../results/tai_lap_cpu.md).
+
