@@ -2,7 +2,7 @@ name: cv_robotics_lab21
 channels:
   - conda-forge
 dependencies:
-  - python=3.11
+  - python=3.10
   - pip
   - pip:
       - ultralytics>=8.4

@@ -78,6 +78,18 @@ Notebook [`on_tap_metrics.ipynb`](../on_tap_metrics.ipynb) đã chạy trên ker
 
 **Thứ tự thử nghiệm.** (A) Cả 5 tracker ở conf 0.3 / iou 0.5 cho cả 5 video, đủ frame. (B) Với tracker có vẻ hơn, mỗi lượt đổi **một** tham số: conf 0.15 / 0.5, rồi iou 0.4 / 0.7. Ở video_1 nhóm làm bước B cho cả 5 tracker. (C) Phần mở rộng: quét conf mịn 0.15–0.4 cho BoT-SORT ở video_1, và vòng iou thứ hai ở conf 0.15 cho video_2. Tổng cộng 31 lượt chấm số trên video_1 và 46 lượt đánh giá bằng mắt cùng số đại diện trên video_2–5. Toàn bộ lượt thử đều chạy đủ frame.
 
+**Hai người làm song song, rồi đối chiếu.** Linh chạy độc lập trên CPU và nộp một phương án lên `main` (commit `a00bbd6`, vẫn còn trong lịch sử repo). Hai bên trùng ở video_3 (`ocsort` 0.3/0.5) và khác ở bốn video còn lại. Nhóm giữ cấu hình có bằng chứng mạnh hơn:
+
+| Video | Phương án của Linh | Bản nộp cuối | Vì sao đổi |
+|---|---|---|---|
+| video_1 | `bytetrack` 0.3/0.5 | `botsort` 0.3/0.7 | Có số đo: HOTA 26.91 → 30.00, IDF1 25.71 → 29.75. ByteTrack đổi ID ít nhất (12) nhưng bỏ sót nhiều nhất (CLR_Re 17.9%). |
+| video_2 | `bytetrack` 0.25/0.5 | `botsort` 0.15/0.7 | ByteTrack không mở track cho hộp dưới 0.5 (`track_thresh`), nên hạ `conf` xuống 0.25 gần như không đổi gì. Ở frame 500–540 nó không vẽ hộp cho người đi giữa phố ([hình](hinh/video_2_5_tracker.jpg)). |
+| video_3 | `ocsort` 0.3/0.5 | `ocsort` 0.3/0.5 | Trùng. Hai người tự đi đến cùng kết luận: OC-SORT giữ ID khi camera quay. |
+| video_4 | `botsort` 0.3/0.5 | `strongsort` 0.3/0.4 | BoT-SORT mất ông áo trắng ở frame 321 sau khi bị che; StrongSORT nhận lại ông là ID 6 tới frame 690 ([hình](hinh/video_4_che_khuat.jpg)). |
+| video_5 | `ocsort` 0.3/0.5 | `botsort` 0.15/0.5 | File của Linh (OC-SORT): 99 ID, 45% track ngắn, mỗi track đứt 2.07 lần. BoT-SORT 0.15: 79 ID, 23% track ngắn, 0.53 lần. |
+
+File kết quả của Linh và của Việt ở cùng cấu hình có số dòng chênh nhau 0–2 và gần như cùng số đại diện; chỉ khác vài chữ số thập phân do một bên chạy CPU, một bên chạy GPU.
+
 ## Phụ lục B — Bảng đầy đủ
 
 ### video_1 — 31 lượt, xếp theo HOTA
