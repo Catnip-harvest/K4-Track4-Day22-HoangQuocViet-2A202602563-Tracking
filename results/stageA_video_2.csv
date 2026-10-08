@@ -1,0 +1,6 @@
+video,tracker,conf,iou,frames,seconds,HOTA,DetA,AssA,MOTA,IDF1,IDSW,n_ids,boxes_per_frame,median_len,short_frac,ids_per_100f,gaps_per_track
+video_2,bytetrack,0.3,0.5,1050,67.9,,,,,,,47,9.4038,177.0,0.1277,4.4762,0.5957
+video_2,ocsort,0.3,0.5,1050,54.9,,,,,,,78,11.9171,64.0,0.2179,7.4286,4.3077
+video_2,botsort,0.3,0.5,1050,76.8,,,,,,,67,11.7333,102.0,0.1791,6.381,2.5522
+video_2,strongsort,0.3,0.5,1050,87.9,,,,,,,79,11.8733,62.0,0.2405,7.5238,4.0
+video_2,deepocsort,0.3,0.5,1050,84.8,,,,,,,77,11.919,65.0,0.1818,7.3333,4.3896

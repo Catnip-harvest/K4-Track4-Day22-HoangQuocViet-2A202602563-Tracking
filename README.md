@@ -60,3 +60,19 @@ python scripts/evaluate_practice.py \
 - `submission_template/BAO_CAO_mau.md` đã điền. Số HOTA / MOTA / IDF1 chỉ bắt buộc cho `video_1`.
 
 Chi tiết từng bước, sự cố, và lịch 2 giờ: [HUONG_DAN.md](HUONG_DAN.md).
+
+## Bài nộp của nhóm Việt – Linh
+
+Hoàng Quốc Việt (2A202602563), Vũ Tiến Linh (2A202602657).
+
+| Video | Tracker | conf | iou |
+|---|---|---|---|
+| video_1 | botsort | 0.3 | 0.7 |
+| video_2 | botsort | 0.15 | 0.7 |
+| video_3 | ocsort | 0.3 | 0.5 |
+| video_4 | strongsort | 0.3 | 0.4 |
+| video_5 | botsort | 0.15 | 0.5 |
+
+- File nộp: [`runs/nop_bai/`](runs/nop_bai/) (`video_1.txt` … `video_5.txt`, đủ frame).
+- Báo cáo: [`submission_template/BAO_CAO_mau.md`](submission_template/BAO_CAO_mau.md). video_1: HOTA 30.00 · MOTA 19.28 · IDF1 29.75.
+- Kết quả mọi lượt thử: [`results/`](results/).

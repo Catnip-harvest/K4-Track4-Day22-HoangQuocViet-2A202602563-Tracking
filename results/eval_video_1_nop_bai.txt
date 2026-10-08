@@ -1,0 +1,96 @@
+C:\Users\vieth\Documents\vinuni\K4-Track4-Day22-HoangQuocViet-2A202602563-Tracking\scripts\evaluate_practice.py:52: FutureWarning: In the future `np.bool` will be defined as the corresponding NumPy scalar.
+  if not hasattr(np, "bool"):
+<string>:4: FutureWarning: In the future `np.bool` will be defined as the corresponding NumPy scalar.
+Error importing BURST due to missing underlying dependency: No module named 'pycocotools'
+
+Eval Config:
+USE_PARALLEL         : False                         
+NUM_PARALLEL_CORES   : 8                             
+BREAK_ON_ERROR       : True                          
+RETURN_ON_ERROR      : False                         
+LOG_ON_ERROR         : C:\Users\vieth\Documents\vinuni\K4-Track4-Day22-HoangQuocViet-2A202602563-Tracking\TrackEval\error_log.txt
+PRINT_RESULTS        : True                          
+PRINT_ONLY_COMBINED  : False                         
+PRINT_CONFIG         : True                          
+TIME_PROGRESS        : True                          
+DISPLAY_LESS_PROGRESS : False                         
+OUTPUT_SUMMARY       : True                          
+OUTPUT_EMPTY_CLASSES : True                          
+OUTPUT_DETAILED      : True                          
+PLOT_CURVES          : True                          
+
+MotChallenge2DBox Config:
+PRINT_CONFIG         : True                          
+GT_FOLDER            : TrackEval\data\gt\mot_challenge
+TRACKERS_FOLDER      : TrackEval\data\trackers\mot_challenge
+OUTPUT_FOLDER        : None                          
+TRACKERS_TO_EVAL     : ['nhom_viet_linh_video1']     
+CLASSES_TO_EVAL      : ['pedestrian']                
+BENCHMARK            : LAB21                         
+SPLIT_TO_EVAL        : train                         
+INPUT_AS_ZIP         : False                         
+DO_PREPROC           : True                          
+TRACKER_SUB_FOLDER   : data                          
+OUTPUT_SUB_FOLDER    :                               
+TRACKER_DISPLAY_NAMES : None                          
+SEQMAP_FOLDER        : None                          
+SEQMAP_FILE          : None                          
+SEQ_INFO             : {'video_1': None}             
+GT_LOC_FORMAT        : {gt_folder}/{seq}/gt/gt.txt   
+SKIP_SPLIT_FOL       : False                         
+
+CLEAR Config:
+METRICS              : ['HOTA', 'CLEAR', 'Identity'] 
+THRESHOLD            : 0.5                           
+PRINT_CONFIG         : True                          
+
+Identity Config:
+METRICS              : ['HOTA', 'CLEAR', 'Identity'] 
+THRESHOLD            : 0.5                           
+PRINT_CONFIG         : True                          
+
+Evaluating 1 tracker(s) on 1 sequence(s) for 1 class(es) on MotChallenge2DBox dataset using the following metrics: HOTA, CLEAR, Identity, Count
+
+
+Evaluating nhom_viet_linh_video1
+
+    MotChallenge2DBox.get_raw_seq_data(nhom_viet_linh_video1, video_1)     0.1198 sec
+    MotChallenge2DBox.get_preprocessed_seq_data(pedestrian)                0.0794 sec
+    HOTA.eval_sequence()                                                   0.1197 sec
+    CLEAR.eval_sequence()                                                  0.0195 sec
+    Identity.eval_sequence()                                               0.0077 sec
+    Count.eval_sequence()                                                  0.0000 sec
+1 eval_sequence(video_1, nhom_viet_linh_video1)                          0.3485 sec
+
+All sequences for nhom_viet_linh_video1 finished in 0.35 seconds
+
+HOTA: nhom_viet_linh_video1-pedestrianHOTA      DetA      AssA      DetRe     DetPr     AssRe     AssPr     LocA      OWTA      HOTA(0)   LocA(0)   HOTALocA(0)
+video_1                            30.001    18.423    49.119    19.15     75.053    52.441    80.973    83.068    30.623    37.161    76.942    28.593    
+COMBINED                           30.001    18.423    49.119    19.15     75.053    52.441    80.973    83.068    30.623    37.161    76.942    28.593    
+
+CLEAR: nhom_viet_linh_video1-pedestrianMOTA      MOTP      MODA      CLR_Re    CLR_Pr    MTR       PTR       MLR       sMOTA     CLR_TP    CLR_FN    CLR_FP    IDSW      MT        PT        ML        Frag      
+video_1                            19.278    80.815    19.455    22.485    88.125    14.516    17.742    67.742    14.964    4178      14403     563       33        9         11        42        105       
+COMBINED                           19.278    80.815    19.455    22.485    88.125    14.516    17.742    67.742    14.964    4178      14403     563       33        9         11        42        105       
+
+Identity: nhom_viet_linh_video1-pedestrianIDF1      IDR       IDP       IDTP      IDFN      IDFP      
+video_1                            29.749    18.67     73.17     3469      15112     1272      
+COMBINED                           29.749    18.67     73.17     3469      15112     1272      
+
+Count: nhom_viet_linh_video1-pedestrianDets      GT_Dets   IDs       GT_IDs    
+video_1                            4741      18581     54        62        
+COMBINED                           4741      18581     54        62        
+
+Timing analysis:
+MotChallenge2DBox.get_raw_seq_data                                     0.1198 sec
+MotChallenge2DBox.get_preprocessed_seq_data                            0.0794 sec
+HOTA.eval_sequence                                                     0.1197 sec
+CLEAR.eval_sequence                                                    0.0195 sec
+Identity.eval_sequence                                                 0.0077 sec
+Count.eval_sequence                                                    0.0000 sec
+eval_sequence                                                          0.3485 sec
+Evaluator.evaluate                                                     2.2822 sec
+Đang chấm video luyện:
+  python TrackEval\scripts\run_mot_challenge.py --GT_FOLDER TrackEval\data\gt\mot_challenge --TRACKERS_FOLDER TrackEval\data\trackers\mot_challenge --BENCHMARK LAB21 --SPLIT_TO_EVAL train --SEQ_INFO video_1 --TRACKERS_TO_EVAL nhom_viet_linh_video1 --METRICS HOTA CLEAR Identity --USE_PARALLEL False
+
+
+Đọc bảng phía trên: HOTA cân bằng phát hiện và giữ danh tính; MOTA phạt số lần đổi ID; IDF1 nhạy với track dài bị gán sai ID. Dùng các số này cho video_1 trong báo cáo. Không có bảng số cho video khác.
